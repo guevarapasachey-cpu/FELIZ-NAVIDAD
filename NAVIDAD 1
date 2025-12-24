@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi persona favorita</title>
+    <style>
+        :root {
+            --primary-red: #d63031;
+            --gold: #f1c40f;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle, #ff4d6d, #c9184a);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Corazones de fondo */
+        .bg-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Contenedor del Regalo */
+        .gift-container {
+            position: relative;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-container:hover {
+            transform: scale(1.1);
+        }
+
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            background-color: var(--primary-red);
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .gift-box::before { /* Cinta horizontal */
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: var(--gold);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .gift-box::after { /* Cinta vertical */
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: var(--gold);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .lid {
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            width: 170px;
+            height: 40px;
+            background: var(--primary-red);
+            border-radius: 5px;
+            z-index: 3;
+            transition: 0.5s;
+        }
+
+        /* Carta oculta */
+        .card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 280px;
+            height: 400px;
+            background: white;
+            transform: translate(-50%, -50%) scale(0);
+            transition: 0.8s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 10px solid #2d3436;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .card.open {
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 10;
+        }
+
+        .card h1 { color: #d63031; font-size: 24px; }
+        .card p { font-size: 18px; line-height: 1.5; color: #2d3436; }
+        .card img { width: 100px; margin-top: 10px; }
+
+        /* Animación de apertura */
+        .gift-container.active .lid {
+            transform: translateY(-100px) rotate(20deg);
+            opacity: 0;
+        }
+        
+        .gift-container.active .gift-box {
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="gift-container" onclick="openGift()">
+        <div class="lid"></div>
+        <div class="gift-box">
+            <div style="position:absolute; top:40%; left:40%; color:white; font-size:40px; font-weight:bold; z-index:5;">?</div>
+        </div>
+    </div>
+
+    <div class="card" id="mainCard">
+        <h1 id="titulo">¡Mi Amor!</h1>
+        <img src="https://cdn-icons-png.flaticon.com/512/2274/2274551.png" alt="Santa">
+        <p id="mensaje">
+            Cuanto más tiempo estoy contigo, más te amo.<br><br>
+            Esta Navidad mi mejor regalo eres tú.<br><br>
+            <b>Te Amo Mucho</b>
+        </p>
+        <div style="font-size: 30px;">🎄🎁✨</div>
+    </div>
+
+    <script>
+        function openGift() {
+            document.querySelector('.gift-container').classList.add('active');
+            setTimeout(() => {
+                document.getElementById('mainCard').classList.add('open');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
